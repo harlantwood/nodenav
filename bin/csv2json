@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+# Usage:
+# bin/csv2json source.csv target.json 
+
+require 'csv'
+require 'json'
+                     
+class IO
+  def self.write( path, content )
+    file = File.new( path, "w" )
+    file.write( content )
+    file.close
+  end
+end
+
+source, target = ARGV
+nodes = []
+rows = CSV.parse IO.read(source)
+rows.shift   # ignore first row (which is probably headers)
+rows.each do |row|
+  row.compact!     
+  name = row.pop
+  nodes << { name: name, tags: row } if name
+end
+                                    
+name = target.split('/').last.split('.')[0...-1].join('.')  # remove directories and file extension
+json = JSON.pretty_generate({ name: name, nodes: nodes })
+IO.write target, json
+
