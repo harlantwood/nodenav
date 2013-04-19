@@ -6,10 +6,11 @@
 
   root.collections_viz = function(json_path) {
     return d3.json(json_path, function(data) {
-      var format, height, node, pack, vis, width;
+      var format, height, node, pack, vis, viz_data, width;
 
-      width = 600;
-      height = 600;
+      viz_data = node_trees_to_d3(data);
+      width = 1000;
+      height = 700;
       format = d3.format(",d");
       pack = d3.layout.pack().size([width - 4, height - 4]).value(function(d) {
         return d.size;
@@ -46,6 +47,10 @@
         }
       });
     });
+  };
+
+  root.node_trees_to_d3 = function(node_trees) {
+    return null;
   };
 
 }).call(this);

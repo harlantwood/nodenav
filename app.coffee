@@ -2,8 +2,9 @@ root = exports ? this
 
 root.collections_viz = (json_path) ->
   d3.json json_path, (data) ->
-    width = 600
-    height = 600
+    viz_data = node_trees_to_d3 data
+    width = 1000
+    height = 700
     format = d3.format(",d")
 
     pack = d3.layout.pack()
@@ -36,3 +37,5 @@ root.collections_viz = (json_path) ->
         .attr("dy", ".3em")
         .text (d) -> if d.name.length <= d.r/3 then d.name else ""
         
+root.node_trees_to_d3 = (node_trees) ->
+  null        
