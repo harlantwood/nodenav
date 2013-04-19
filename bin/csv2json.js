@@ -15,7 +15,7 @@
   csv_data = csv().from.path(source);
 
   csv_data.to.array(function(rows) {
-    var column_index, headers, node, property, property_headers, property_name, row, row_index, row_node, _base, _base1, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3, _ref4, _results;
+    var column_index, headers, node, property, property_headers, property_name, row, row_index, row_node, _base, _base1, _base2, _i, _j, _k, _len, _len1, _len2, _ref1, _ref2, _ref3, _ref4, _ref5, _ref6, _results;
 
     headers = rows.shift();
     property_headers = headers.slice(0);
@@ -35,6 +35,14 @@
           }
           nodes[node]["is"].push(property_name);
           nodes[node]["is"] = _.uniq(nodes[node]["is"]);
+          if ((_ref3 = nodes[property_name]) == null) {
+            nodes[property_name] = {};
+          }
+          if ((_ref4 = (_base1 = nodes[property_name])["nodes"]) == null) {
+            _base1["nodes"] = [];
+          }
+          nodes[property_name]["nodes"].push(node);
+          nodes[property_name]["nodes"] = _.uniq(nodes[property_name]["nodes"]);
         }
       }
       row_node = row.shift();
@@ -42,11 +50,11 @@
         property = row[column_index];
         if (property) {
           property_name = property_headers[column_index];
-          if ((_ref3 = nodes[row_node]) == null) {
+          if ((_ref5 = nodes[row_node]) == null) {
             nodes[row_node] = {};
           }
-          if ((_ref4 = (_base1 = nodes[row_node])[property_name]) == null) {
-            _base1[property_name] = [];
+          if ((_ref6 = (_base2 = nodes[row_node])[property_name]) == null) {
+            _base2[property_name] = [];
           }
           nodes[row_node][property_name].push(property);
           nodes[row_node][property_name] = _.uniq(nodes[row_node][property_name]);

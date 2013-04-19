@@ -16,8 +16,8 @@ csv_data = csv().from.path(source)
   
 csv_data.to.array((rows) -> 
   headers = rows.shift()
-  property_headers = headers[..]
-  property_headers.shift()   # first column is the "content", others are "properties"
+  property_headers = headers[..]  # copy of headers
+  property_headers.shift()        # drop first column (the "content"), other columns are "properties"
 
   for row, row_index in rows  
     for node, column_index in row
@@ -27,6 +27,12 @@ csv_data.to.array((rows) ->
         nodes[node]["is"] ?= []
         nodes[node]["is"].push property_name
         nodes[node]["is"] = _.uniq(nodes[node]["is"])
+
+        nodes[property_name] ?= {}
+        nodes[property_name]["nodes"] ?= []
+        nodes[property_name]["nodes"].push node
+        nodes[property_name]["nodes"] = _.uniq(nodes[property_name]["nodes"])
+        
     row_node = row.shift()  # first column is the "content"
     for property, column_index in row
       if property       
