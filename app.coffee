@@ -20,7 +20,7 @@ root.collections_viz = (json_path) ->
       .append("g")
         .attr("transform", "translate(2, 2)")
 
-    node = vis.data([ data ]).selectAll("#viz-collections g.node")
+    node = vis.data([ viz_data ]).selectAll("#viz-collections g.node")
         .data(pack.nodes)
       .enter().append("g")
         .attr("class", (d) -> if d.children then "node" else "leaf node")

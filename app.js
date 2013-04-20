@@ -17,7 +17,7 @@
         return d.size;
       });
       vis = d3.select("#viz-collections").append("svg").attr("width", width).attr("height", height).attr("class", "pack").append("g").attr("transform", "translate(2, 2)");
-      node = vis.data([data]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
+      node = vis.data([viz_data]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
         if (d.children) {
           return "node";
         } else {
