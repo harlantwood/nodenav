@@ -54,7 +54,39 @@
     var properties, property_name, type, weight;
 
     if (root_node != null) {
+      return {
+        "name": root_node,
+        "children": (function() {
+          var _ref, _results;
 
+          _ref = node_trees[root_node];
+          _results = [];
+          for (type in _ref) {
+            if (!__hasProp.call(_ref, type)) continue;
+            properties = _ref[type];
+            if (type) {
+              _results.push({
+                "name": type,
+                "children": (function() {
+                  var _results1;
+
+                  _results1 = [];
+                  for (property_name in properties) {
+                    if (!__hasProp.call(properties, property_name)) continue;
+                    weight = properties[property_name];
+                    _results1.push({
+                      "name": property_name,
+                      "size": weight
+                    });
+                  }
+                  return _results1;
+                })()
+              });
+            }
+          }
+          return _results;
+        })()
+      };
     } else {
       return {
         "name": Object.keys(node_trees[""][""])[0],

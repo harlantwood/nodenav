@@ -41,6 +41,14 @@ root.collections_viz = (json_path) ->
         
 root.node_trees_to_d3 = (node_trees, root_node) ->
   if root_node?
+    "name": root_node
+    "children": 
+      for own type, properties of node_trees[root_node] when type
+        "name": type
+        "children": 
+          for own property_name, weight of properties
+            "name": property_name
+            "size": weight
   else # if node_trees[""] and node_trees[""][""] 
     "name": Object.keys(node_trees[""][""])[0]
     "children": 
