@@ -7,11 +7,13 @@
 
 _ = require 'underscore'
 csv = require 'csv'
+
+BASE_WEIGHT = 0.5
                      
 [source, target] = process.argv[2..]  # all relevant command line args 
                
 name = _.last(target.split '/').replace(/\.\w+$/, '')  # remove directories and file extension
-nodes = {}   # a hash of hashes of arrays of strings
+nodes = {}   # a hash of hashes of hashes of numbers, 0..1, for more details see <https://gist.github.com/harlantwood/4a698db1cd6e7fe00bd9>
 csv_data = csv().from.path(source)
   
 csv_data.to.array((rows) -> 
@@ -22,27 +24,24 @@ csv_data.to.array((rows) ->
   for row, row_index in rows  
     for node, column_index in row
       if node
-        property_name = headers[column_index]
-        nodes[node] ?= {}
-        nodes[node]["is"] ?= []
-        nodes[node]["is"].push property_name
-        nodes[node]["is"] = _.uniq(nodes[node]["is"])
-
-        nodes[property_name] ?= {}
-        nodes[property_name]["nodes"] ?= []
-        nodes[property_name]["nodes"].push node
-        nodes[property_name]["nodes"] = _.uniq(nodes[property_name]["nodes"])
-        
-    row_node = row.shift()  # first column is the "content"
+        property_name = headers[column_index]    
+        insert node,          "type",  property_name
+        insert property_name, "nodes", node
+    row_content = row.shift()  # first column is the "content"
+    
     for property, column_index in row
       if property       
         property_name = property_headers[column_index]
-        nodes[row_node] ?= {}    
-        nodes[row_node][property_name] ?= []
-        nodes[row_node][property_name].push property
-        nodes[row_node][property_name] = _.uniq(nodes[row_node][property_name])
+        insert row_content, property_name, property
+
     log_if(row_index == rows.length-1)
 )
+
+insert = (key1, key2, key3) ->
+  nodes[key1] ?= {}
+  nodes[key1][key2] ?= {}          
+  nodes[key1][key2][key3] = BASE_WEIGHT
+
 
 log_if = (really)->
   if really
