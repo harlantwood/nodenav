@@ -1,5 +1,7 @@
 root = exports ? this 
 
+# root.PHI_RATIO = 1.6180339887498948482    
+
 root.collections_viz = (json_path) ->
   d3.json json_path, (data) ->
     viz_data = node_trees_to_d3 data
@@ -37,5 +39,14 @@ root.collections_viz = (json_path) ->
         .attr("dy", ".3em")
         .text (d) -> if d.name.length <= d.r/3 then d.name else ""
         
-root.node_trees_to_d3 = (node_trees) ->
-  null        
+root.node_trees_to_d3 = (node_trees, root_node) ->
+  if root_node?
+  else # if node_trees[""] and node_trees[""][""] 
+    "name": Object.keys(node_trees[""][""])[0]
+    "children": 
+      for own type, properties of node_trees[""] when type
+        "name": type
+        "children": 
+          for own property_name, weight of properties
+            "name": property_name
+            "size": weight
