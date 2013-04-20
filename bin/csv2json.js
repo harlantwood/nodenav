@@ -22,6 +22,7 @@
     headers = rows.shift();
     property_headers = headers.slice(0);
     property_headers.shift();
+    insert("", "", name);
     _results = [];
     for (row_index = _i = 0, _len = rows.length; _i < _len; row_index = ++_i) {
       row = rows[row_index];
@@ -29,6 +30,7 @@
         node = row[column_index];
         if (node) {
           property_name = headers[column_index];
+          insert("", property_name, node);
           insert(node, "type", property_name);
           insert(property_name, "nodes", node);
         }

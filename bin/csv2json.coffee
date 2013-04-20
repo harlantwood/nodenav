@@ -21,14 +21,17 @@ csv_data.to.array((rows) ->
   property_headers = headers[..]  # copy of headers
   property_headers.shift()        # drop first column (the "content"), other columns are "properties"
 
+  insert "", "", name
+  
   for row, row_index in rows  
     for node, column_index in row
       if node
-        property_name = headers[column_index]    
-        insert node,          "type",  property_name
-        insert property_name, "nodes", node
+        property_name = headers[column_index]      
+        insert "",            property_name, node
+        insert node,          "type",        property_name
+        insert property_name, "nodes",       node
+
     row_content = row.shift()  # first column is the "content"
-    
     for property, column_index in row
       if property       
         property_name = property_headers[column_index]
