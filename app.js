@@ -7,46 +7,50 @@
 
   root.collections_viz = function(json_path) {
     return d3.json(json_path, function(data) {
-      var format, height, node, pack, vis, viz_data, width;
+      return root.render_viz(data, "");
+    });
+  };
 
-      viz_data = node_trees_to_d3(data);
-      width = 1000;
-      height = 700;
-      format = d3.format(",d");
-      pack = d3.layout.pack().size([width - 4, height - 4]).value(function(d) {
-        return d.size;
-      });
-      vis = d3.select("#viz-collections").append("svg").attr("width", width).attr("height", height).attr("class", "pack").append("g").attr("transform", "translate(2, 2)");
-      node = vis.data([viz_data]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
-        if (d.children) {
-          return "node";
-        } else {
-          return "leaf node";
-        }
-      }).attr("transform", function(d) {
-        return "translate(" + d.x + "," + d.y + ")";
-      });
-      node.append("title").text(function(d) {
-        return d.name + (d.children ? "" : ": " + format(d.size));
-      });
-      node.append("circle").attr("r", function(d) {
-        return d.r;
-      }).on("click", function(d) {
-        if (d.children) {
-          return window.location = d.url;
-        } else {
-          return void 0;
-        }
-      });
-      return node.filter(function(d) {
-        return d.children;
-      }).append("text").attr("text-anchor", "middle").attr("dy", ".3em").text(function(d) {
-        if (d.name.length <= d.r / 3) {
-          return d.name;
-        } else {
-          return "";
-        }
-      });
+  root.render_viz = function(data, key) {
+    var format, height, node, pack, vis, viz_data, width;
+
+    viz_data = node_trees_to_d3(data, key);
+    width = 1000;
+    height = 700;
+    format = d3.format(",d");
+    pack = d3.layout.pack().size([width - 4, height - 4]).value(function(d) {
+      return d.size;
+    });
+    vis = d3.select("#viz-collections").append("svg").attr("width", width).attr("height", height).attr("class", "pack").append("g").attr("transform", "translate(2, 2)");
+    node = vis.data([viz_data]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
+      if (d.children) {
+        return "node";
+      } else {
+        return "leaf node";
+      }
+    }).attr("transform", function(d) {
+      return "translate(" + d.x + "," + d.y + ")";
+    });
+    node.append("title").text(function(d) {
+      return d.name + (d.children ? "" : ": " + format(d.size));
+    });
+    node.append("circle").attr("r", function(d) {
+      return d.r;
+    }).on("click", function(d) {
+      if (d.children) {
+        return window.location = d.url;
+      } else {
+        return void 0;
+      }
+    });
+    return node.filter(function(d) {
+      return d.children;
+    }).append("text").attr("text-anchor", "middle").attr("dy", ".3em").text(function(d) {
+      if (d.name.length <= d.r / 3) {
+        return d.name;
+      } else {
+        return "";
+      }
     });
   };
 
