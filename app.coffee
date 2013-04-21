@@ -3,11 +3,11 @@ root = exports ? this
 # root.PHI_RATIO = 1.6180339887498948482    
 
 root.collections_viz = (json_path) ->
-  d3.json json_path, (data) ->
-    root.render_viz data, ""
+  d3.json json_path, (node_trees) ->             
+    viz_data = node_trees_to_d3_trees(node_trees)
+    root.render_viz viz_data[""]
 
-root.render_viz = (data, key) ->
-  viz_data = node_trees_to_d3 data, key
+root.render_viz = (d3_node_tree) ->  
   width = 1000
   height = 700
   format = d3.format(",d")
@@ -23,7 +23,7 @@ root.render_viz = (data, key) ->
     .append("g")
       .attr("transform", "translate(2, 2)")
 
-  node = vis.data([ viz_data ]).selectAll("#viz-collections g.node")
+  node = vis.data([ d3_node_tree ]).selectAll("#viz-collections g.node")
       .data(pack.nodes)
     .enter().append("g")
       .attr("class", (d) -> if d.children then "node" else "leaf node")
@@ -41,19 +41,11 @@ root.render_viz = (data, key) ->
       .attr("text-anchor", "middle")
       .attr("dy", ".3em")
       .text (d) -> if d.name.length <= d.r/3 then d.name else ""
-        
-root.node_trees_to_d3 = (node_trees, root_node) ->
-  if root_node?
-    "name": root_node
-    "children": d3_children(node_trees, root_node)
-  else # if node_trees[""] and node_trees[""][""] 
-    "name": Object.keys(node_trees[""][""])[0]
-    "children": d3_children(node_trees, "")
 
-root.d3_children = (node_trees, start_node) ->
-  for own type, properties of node_trees[start_node] when type
-    "name": type
-    "children": 
-      for own property_name, weight of properties
-        "name": property_name
-        "size": weight
+root.node_trees_to_d3_trees = (node_trees) ->       
+  viz_data = {}
+  for own tree_name, tree_data of node_trees
+    node_tree = new NodeTree(tree_name, tree_data)
+    viz_data[tree_name] = node_tree.to_d3()
+  viz_data
+        

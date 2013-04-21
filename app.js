@@ -6,15 +6,17 @@
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
   root.collections_viz = function(json_path) {
-    return d3.json(json_path, function(data) {
-      return root.render_viz(data, "");
+    return d3.json(json_path, function(node_trees) {
+      var viz_data;
+
+      viz_data = node_trees_to_d3_trees(node_trees);
+      return root.render_viz(viz_data[""]);
     });
   };
 
-  root.render_viz = function(data, key) {
-    var format, height, node, pack, vis, viz_data, width;
+  root.render_viz = function(d3_node_tree) {
+    var format, height, node, pack, vis, width;
 
-    viz_data = node_trees_to_d3(data, key);
     width = 1000;
     height = 700;
     format = d3.format(",d");
@@ -22,7 +24,7 @@
       return d.size;
     });
     vis = d3.select("#viz-collections").append("svg").attr("width", width).attr("height", height).attr("class", "pack").append("g").attr("transform", "translate(2, 2)");
-    node = vis.data([viz_data]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
+    node = vis.data([d3_node_tree]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
       if (d.children) {
         return "node";
       } else {
@@ -54,49 +56,17 @@
     });
   };
 
-  root.node_trees_to_d3 = function(node_trees, root_node) {
-    if (root_node != null) {
-      return {
-        "name": root_node,
-        "children": d3_children(node_trees, root_node)
-      };
-    } else {
-      return {
-        "name": Object.keys(node_trees[""][""])[0],
-        "children": d3_children(node_trees, "")
-      };
+  root.node_trees_to_d3_trees = function(node_trees) {
+    var node_tree, tree_data, tree_name, viz_data;
+
+    viz_data = {};
+    for (tree_name in node_trees) {
+      if (!__hasProp.call(node_trees, tree_name)) continue;
+      tree_data = node_trees[tree_name];
+      node_tree = new NodeTree(tree_name, tree_data);
+      viz_data[tree_name] = node_tree.to_d3();
     }
-  };
-
-  root.d3_children = function(node_trees, start_node) {
-    var properties, property_name, type, weight, _ref, _results;
-
-    _ref = node_trees[start_node];
-    _results = [];
-    for (type in _ref) {
-      if (!__hasProp.call(_ref, type)) continue;
-      properties = _ref[type];
-      if (type) {
-        _results.push({
-          "name": type,
-          "children": (function() {
-            var _results1;
-
-            _results1 = [];
-            for (property_name in properties) {
-              if (!__hasProp.call(properties, property_name)) continue;
-              weight = properties[property_name];
-              _results1.push({
-                "name": property_name,
-                "size": weight
-              });
-            }
-            return _results1;
-          })()
-        });
-      }
-    }
-    return _results;
+    return viz_data;
   };
 
 }).call(this);
