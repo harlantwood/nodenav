@@ -6,7 +6,7 @@
 
   csv = require('csv');
 
-  BASE_WEIGHT = 0.5;
+  BASE_WEIGHT = 1;
 
   _ref = process.argv.slice(2), source = _ref[0], target = _ref[1];
 
@@ -17,8 +17,27 @@
   csv_data = csv().from.path(source);
 
   csv_data.to.array(function(rows) {
-    var column_index, headers, node, property, property_headers, property_name, row, row_content, row_index, _i, _j, _k, _len, _len1, _len2, _results;
+    var column_index, done, headers, node, property, property_headers, property_name, row, row_content, row_index, _i, _j, _k, _len, _len1, _len2, _results;
 
+    rows = (function() {
+      var _i, _len, _results;
+
+      _results = [];
+      for (_i = 0, _len = rows.length; _i < _len; _i++) {
+        row = rows[_i];
+        _results.push((function() {
+          var _j, _len1, _results1;
+
+          _results1 = [];
+          for (_j = 0, _len1 = row.length; _j < _len1; _j++) {
+            node = row[_j];
+            _results1.push(node.trim());
+          }
+          return _results1;
+        })());
+      }
+      return _results;
+    })();
     headers = rows.shift();
     property_headers = headers.slice(0);
     property_headers.shift();
@@ -26,11 +45,13 @@
     _results = [];
     for (row_index = _i = 0, _len = rows.length; _i < _len; row_index = ++_i) {
       row = rows[row_index];
+      if (row[0]) {
+        insert("", headers[0], row[0]);
+      }
       for (column_index = _j = 0, _len1 = row.length; _j < _len1; column_index = ++_j) {
         node = row[column_index];
         if (node) {
           property_name = headers[column_index];
-          insert("", property_name, node);
           insert(node, "type", property_name);
           insert(property_name, "nodes", node);
         }
@@ -43,7 +64,8 @@
           insert(row_content, property_name, property);
         }
       }
-      _results.push(log_if(row_index === rows.length - 1));
+      done = row_index === rows.length - 1;
+      _results.push(log_if(done));
     }
     return _results;
   });
@@ -57,7 +79,11 @@
     if ((_ref2 = (_base = nodes[key1])[key2]) == null) {
       _base[key2] = {};
     }
-    return nodes[key1][key2][key3] = BASE_WEIGHT;
+    if (nodes[key1][key2][key3]) {
+      return nodes[key1][key2][key3] += 1;
+    } else {
+      return nodes[key1][key2][key3] = BASE_WEIGHT;
+    }
   };
 
   log_if = function(really) {

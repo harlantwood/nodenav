@@ -8,7 +8,7 @@
 _ = require 'underscore'
 csv = require 'csv'
 
-BASE_WEIGHT = 0.5
+BASE_WEIGHT = 1
                      
 [source, target] = process.argv[2..]  # all relevant command line args 
                
@@ -17,6 +17,7 @@ nodes = {}   # a hash of hashes of hashes of numbers, 0..1, for more details see
 csv_data = csv().from.path(source)
   
 csv_data.to.array((rows) -> 
+  rows = ((node.trim() for node in row) for row in rows)
   headers = rows.shift()
   property_headers = headers[..]  # copy of headers
   property_headers.shift()        # drop first column (the "content"), other columns are "properties"
@@ -24,10 +25,10 @@ csv_data.to.array((rows) ->
   insert "", "", name
   
   for row, row_index in rows  
+    insert "", headers[0], row[0] if row[0]
     for node, column_index in row
       if node
-        property_name = headers[column_index]      
-        insert "",            property_name, node
+        property_name = headers[column_index]
         insert node,          "type",        property_name
         insert property_name, "nodes",       node
 
@@ -36,14 +37,18 @@ csv_data.to.array((rows) ->
       if property       
         property_name = property_headers[column_index]
         insert row_content, property_name, property
-
-    log_if(row_index == rows.length-1)
+               
+    done = row_index == rows.length-1
+    log_if done
 )
 
 insert = (key1, key2, key3) ->
   nodes[key1] ?= {}
   nodes[key1][key2] ?= {}          
-  nodes[key1][key2][key3] = BASE_WEIGHT
+  if nodes[key1][key2][key3]
+    nodes[key1][key2][key3] += 1
+  else    
+    nodes[key1][key2][key3] = BASE_WEIGHT
 
 
 log_if = (really)->
