@@ -22,15 +22,14 @@ csv_data.to.array((rows) ->
   property_headers = headers[..]  # copy of headers
   property_headers.shift()        # drop first column (the "content"), other columns are "properties"
 
-  insert "", "", name
+  insert "", "name", name
   
   for row, row_index in rows  
-    insert "", headers[0], row[0] if row[0]
+    insert "", "", row[0] if row[0]
     for node, column_index in row
       if node
         property_name = headers[column_index]
-        insert node,          "type",        property_name
-        insert property_name, "nodes",       node
+        insert "", property_name, node
 
     row_content = row.shift()  # first column is the "content"
     for property, column_index in row
@@ -45,11 +44,8 @@ csv_data.to.array((rows) ->
 insert = (key1, key2, key3) ->
   nodes[key1] ?= {}
   nodes[key1][key2] ?= {}          
-  if nodes[key1][key2][key3]
-    nodes[key1][key2][key3] += 1
-  else    
-    nodes[key1][key2][key3] = BASE_WEIGHT
-
+  nodes[key1][key2][key3] ?= 0
+  nodes[key1][key2][key3] += 1
 
 log_if = (really)->
   if really

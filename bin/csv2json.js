@@ -41,19 +41,18 @@
     headers = rows.shift();
     property_headers = headers.slice(0);
     property_headers.shift();
-    insert("", "", name);
+    insert("", "name", name);
     _results = [];
     for (row_index = _i = 0, _len = rows.length; _i < _len; row_index = ++_i) {
       row = rows[row_index];
       if (row[0]) {
-        insert("", headers[0], row[0]);
+        insert("", "", row[0]);
       }
       for (column_index = _j = 0, _len1 = row.length; _j < _len1; column_index = ++_j) {
         node = row[column_index];
         if (node) {
           property_name = headers[column_index];
-          insert(node, "type", property_name);
-          insert(property_name, "nodes", node);
+          insert("", property_name, node);
         }
       }
       row_content = row.shift();
@@ -71,7 +70,7 @@
   });
 
   insert = function(key1, key2, key3) {
-    var _base, _ref1, _ref2;
+    var _base, _base1, _ref1, _ref2, _ref3;
 
     if ((_ref1 = nodes[key1]) == null) {
       nodes[key1] = {};
@@ -79,11 +78,10 @@
     if ((_ref2 = (_base = nodes[key1])[key2]) == null) {
       _base[key2] = {};
     }
-    if (nodes[key1][key2][key3]) {
-      return nodes[key1][key2][key3] += 1;
-    } else {
-      return nodes[key1][key2][key3] = BASE_WEIGHT;
+    if ((_ref3 = (_base1 = nodes[key1][key2])[key3]) == null) {
+      _base1[key3] = 0;
     }
+    return nodes[key1][key2][key3] += 1;
   };
 
   log_if = function(really) {
