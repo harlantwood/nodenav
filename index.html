@@ -5,11 +5,13 @@
     <link href="circle-packing.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div id="viz-collections"></div>                               
+    <div id="viz-graph"></div>                               
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="models/node_tree.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script>
-      collections_viz('collections.json');
+      collections_viz('fixtures/collections.json');
     </script>
   </body>
 </html>
