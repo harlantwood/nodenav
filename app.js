@@ -7,24 +7,26 @@
 
   root.collections_viz = function(json_path) {
     return d3.json(json_path, function(node_trees) {
-      var viz_data;
+      var d3_node_trees;
 
-      viz_data = node_trees_to_d3_trees(node_trees);
-      return root.render_viz(viz_data[""]);
+      d3_node_trees = node_trees_to_d3_trees(node_trees);
+      return root.render_viz(d3_node_trees, "");
     });
   };
 
-  root.render_viz = function(d3_node_tree) {
-    var format, height, node, pack, vis, width;
+  root.render_viz = function(d3_node_trees, key) {
+    var d3_node_tree, format, height, node, pack, vis, width;
 
+    d3_node_tree = d3_node_trees[key];
+    $('#viz-graph').empty();
     width = 1000;
     height = 700;
     format = d3.format(",d");
     pack = d3.layout.pack().size([width - 4, height - 4]).value(function(d) {
       return d.size;
     });
-    vis = d3.select("#viz-collections").append("svg").attr("width", width).attr("height", height).attr("class", "pack").append("g").attr("transform", "translate(2, 2)");
-    node = vis.data([d3_node_tree]).selectAll("#viz-collections g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
+    vis = d3.select("#viz-graph").append("svg").attr("width", width).attr("height", height).attr("class", "pack").append("g").attr("transform", "translate(2, 2)");
+    node = vis.data([d3_node_tree]).selectAll("#viz-graph g.node").data(pack.nodes).enter().append("g").attr("class", function(d) {
       if (d.children) {
         return "node";
       } else {
@@ -40,7 +42,7 @@
       return d.r;
     }).on("click", function(d) {
       if (d.children) {
-        return window.location = d.url;
+        return root.render_viz(d3_node_trees, d.name);
       } else {
         return void 0;
       }

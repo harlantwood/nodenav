@@ -4,10 +4,15 @@ root = exports ? this
 
 root.collections_viz = (json_path) ->
   d3.json json_path, (node_trees) ->             
-    viz_data = node_trees_to_d3_trees(node_trees)
-    root.render_viz viz_data[""]
+    d3_node_trees = node_trees_to_d3_trees(node_trees)
+    root.render_viz d3_node_trees, ""
 
-root.render_viz = (d3_node_tree) ->  
+root.render_viz = (d3_node_trees, key) ->     
+
+  d3_node_tree = d3_node_trees[key]
+  
+  $('#viz-graph').empty()
+
   width = 1000
   height = 700
   format = d3.format(",d")
@@ -16,14 +21,14 @@ root.render_viz = (d3_node_tree) ->
     .size([ width - 4, height - 4 ])
     .value((d) -> d.size)
 
-  vis = d3.select("#viz-collections").append("svg")
+  vis = d3.select("#viz-graph").append("svg")
       .attr("width", width)
       .attr("height", height)
       .attr("class", "pack")
     .append("g")
       .attr("transform", "translate(2, 2)")
 
-  node = vis.data([ d3_node_tree ]).selectAll("#viz-collections g.node")
+  node = vis.data([ d3_node_tree ]).selectAll("#viz-graph g.node")
       .data(pack.nodes)
     .enter().append("g")
       .attr("class", (d) -> if d.children then "node" else "leaf node")
@@ -33,8 +38,8 @@ root.render_viz = (d3_node_tree) ->
     .text (d) -> d.name + (if d.children then "" else ": " + format(d.size))
 
   node.append("circle")
-    .attr("r", (d) -> d.r)
-    .on "click", (d) -> if d.children then (window.location = d.url) else undefined
+    .attr("r", (d) -> d.r) 
+    .on "click", (d) -> if d.children then root.render_viz(d3_node_trees, d.name) else undefined
 
   node.filter((d) -> d.children)
     .append("text")
