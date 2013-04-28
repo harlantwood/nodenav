@@ -22,6 +22,20 @@ test "to_d3", ->
     
   deepEqual node_tree.to_d3(), expected_d3 
     
+test "color when no color information is present", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Earth Programmer": 1,
+  )
+  equal node_tree.color(), '#000000'
+
+test "color it black", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Black": 1,
+  )
+  equal node_tree.color(), '#000000'
+
 test "color it red", ->
   node_tree = new NodeTree(
     "Joan of Arc",

@@ -6,6 +6,10 @@
   root = typeof exports !== "undefined" && exports !== null ? exports : this;
 
   root.NodeTree = (function() {
+    var NOT_A_COLOR;
+
+    NOT_A_COLOR = ['Invalid Color Name', 'Invalid Color Name', 'Invalid Color Name'];
+
     function NodeTree(name, properties) {
       this.name = name;
       this.properties = properties;
@@ -45,7 +49,7 @@
     NodeTree.prototype.color = function() {
       var color_flock, colors, mixed_color, property_name, rgb_color, weight, _ref;
 
-      colors = [];
+      colors = [[0, 0, 0]];
       _ref = this.properties;
       for (property_name in _ref) {
         if (!__hasProp.call(_ref, property_name)) continue;
@@ -54,7 +58,7 @@
           continue;
         }
         rgb_color = Colors.name2rgb(property_name);
-        if (rgb_color !== "Invalid Color Name") {
+        if (!_.isEqual(rgb_color.a, NOT_A_COLOR)) {
           colors.push(rgb_color.a);
         }
       }

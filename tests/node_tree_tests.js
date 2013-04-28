@@ -22,6 +22,24 @@
     return deepEqual(node_tree.to_d3(), expected_d3);
   });
 
+  test("color when no color information is present", function() {
+    var node_tree;
+
+    node_tree = new NodeTree("Joan of Arc", {
+      "Earth Programmer": 1
+    });
+    return equal(node_tree.color(), '#000000');
+  });
+
+  test("color it black", function() {
+    var node_tree;
+
+    node_tree = new NodeTree("Joan of Arc", {
+      "Black": 1
+    });
+    return equal(node_tree.color(), '#000000');
+  });
+
   test("color it red", function() {
     var node_tree;
 
