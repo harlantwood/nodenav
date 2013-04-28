@@ -40,12 +40,10 @@
     });
     node.append("circle").attr("r", function(d) {
       return d.r;
+    }).filter(function(d) {
+      return !d.children;
     }).on("click", function(d) {
-      if (d.children) {
-        return root.render_viz(d3_node_trees, d.name);
-      } else {
-        return void 0;
-      }
+      return root.render_viz(d3_node_trees, d.name);
     });
     return node.filter(function(d) {
       return !d.children;

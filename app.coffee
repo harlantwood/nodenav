@@ -39,7 +39,8 @@ root.render_viz = (d3_node_trees, key) ->
 
   node.append("circle")
     .attr("r", (d) -> d.r) 
-    .on "click", (d) -> if d.children then root.render_viz(d3_node_trees, d.name) else undefined
+    .filter((d) -> !d.children)
+      .on "click", (d) -> (root.render_viz(d3_node_trees, d.name))
 
   node.filter((d) -> !d.children)
     .append("text")
