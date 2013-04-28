@@ -121,4 +121,3 @@ test "hex_color weights", ->
     "blue": 1/3 
   )
   equal node_tree.hex_color(), '#800055'
-
