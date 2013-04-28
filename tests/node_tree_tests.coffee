@@ -65,3 +65,60 @@ test "hex_color mixing and normalization", ->
     "Purple": 1 
   )
   equal node_tree.hex_color(), '#ff0055'
+  
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Red": 0.5
+    "green": 0
+  )
+  equal node_tree.hex_color(), '#800000'
+
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Red": 1
+    "green": 0
+  )
+  equal node_tree.hex_color(), '#ff0000'
+
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Red": 2
+    "green": 0
+  )
+  equal node_tree.hex_color(), '#ff0000'
+
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "red": 1
+    "blue": 1
+  )
+  equal node_tree.hex_color(), '#ff00ff'
+
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Red": 2
+    "Blue": 1
+  )
+  equal node_tree.hex_color(), '#ff0080'
+
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "red": 4
+    "blue": 1
+  )
+  equal node_tree.hex_color(), '#ff0040'
+
+test "hex_color weights", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "red": 0.5
+    "blue": 1/3 
+  )
+  equal node_tree.hex_color(), '#800055'
+
