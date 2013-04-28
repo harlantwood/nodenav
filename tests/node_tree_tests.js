@@ -145,7 +145,7 @@
       "red": 0.5,
       "blue": 1 / 3
     });
-    return equal(node_tree.hex_color(), '#800055');
+    return equal(node_tree.hex_color(), 'NOT #800055');
   });
 
 }).call(this);

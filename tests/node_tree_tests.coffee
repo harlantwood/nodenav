@@ -120,4 +120,4 @@ test "hex_color weights", ->
     "red": 0.5
     "blue": 1/3 
   )
-  equal node_tree.hex_color(), '#800055'
+  equal node_tree.hex_color(), 'NOT #800055'
