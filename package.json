@@ -13,7 +13,8 @@
   "devDependencies": {
     "underscore": "~>1.4.4",
     "csv": "~>0.3.0",
-    "http-server": "~>0.5.3"
+    "http-server": "~>0.5.3",
+    "grunt": "~>0.4.1"
   },
   "batman": {
     "appName": "NodeNav",
