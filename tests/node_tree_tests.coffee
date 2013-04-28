@@ -22,39 +22,46 @@ test "to_d3", ->
     
   deepEqual node_tree.to_d3(), expected_d3 
     
-test "color when no color information is present", ->
+test "hex_color when no color information is present", ->
   node_tree = new NodeTree(
     "Joan of Arc",
     "Earth Programmer": 1,
   )
-  equal node_tree.color(), '#000000'
+  equal node_tree.hex_color(), '#000000'
 
-test "color it black", ->
+test "hex_color it black", ->
   node_tree = new NodeTree(
     "Joan of Arc",
     "Black": 1,
   )
-  equal node_tree.color(), '#000000'
+  equal node_tree.hex_color(), '#000000'
 
-test "color it red", ->
+test "hex_color it red", ->
   node_tree = new NodeTree(
     "Joan of Arc",
     "Red": 1
   )
-  equal node_tree.color(), '#ff0000'
+  equal node_tree.hex_color(), '#ff0000'
 
-test "color it blue", ->
+test "hex_color it blue", ->
   node_tree = new NodeTree(
     "Joan of Arc",
     "Blue": 1
   )
-  equal node_tree.color(), '#0000ff'
+  equal node_tree.hex_color(), '#0000ff'
 
-test "color it purple (mixing red and blue)", ->
+test "hex_color it purple (mixing red and blue)", ->
   node_tree = new NodeTree(
     "Joan of Arc",
     "Blue": 1
     "Red": 1
   )
-  equal node_tree.color(), '#ff00ff'
+  equal node_tree.hex_color(), '#ff00ff'
 
+test "hex_color mixing and normalization", ->
+  node_tree = new NodeTree(
+    "Joan of Arc",
+    "Red": 1
+    "Purple": 1 
+  )
+  equal node_tree.hex_color(), '#ff0055'

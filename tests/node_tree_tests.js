@@ -22,50 +22,60 @@
     return deepEqual(node_tree.to_d3(), expected_d3);
   });
 
-  test("color when no color information is present", function() {
+  test("hex_color when no color information is present", function() {
     var node_tree;
 
     node_tree = new NodeTree("Joan of Arc", {
       "Earth Programmer": 1
     });
-    return equal(node_tree.color(), '#000000');
+    return equal(node_tree.hex_color(), '#000000');
   });
 
-  test("color it black", function() {
+  test("hex_color it black", function() {
     var node_tree;
 
     node_tree = new NodeTree("Joan of Arc", {
       "Black": 1
     });
-    return equal(node_tree.color(), '#000000');
+    return equal(node_tree.hex_color(), '#000000');
   });
 
-  test("color it red", function() {
+  test("hex_color it red", function() {
     var node_tree;
 
     node_tree = new NodeTree("Joan of Arc", {
       "Red": 1
     });
-    return equal(node_tree.color(), '#ff0000');
+    return equal(node_tree.hex_color(), '#ff0000');
   });
 
-  test("color it blue", function() {
+  test("hex_color it blue", function() {
     var node_tree;
 
     node_tree = new NodeTree("Joan of Arc", {
       "Blue": 1
     });
-    return equal(node_tree.color(), '#0000ff');
+    return equal(node_tree.hex_color(), '#0000ff');
   });
 
-  test("color it purple (mixing red and blue)", function() {
+  test("hex_color it purple (mixing red and blue)", function() {
     var node_tree;
 
     node_tree = new NodeTree("Joan of Arc", {
       "Blue": 1,
       "Red": 1
     });
-    return equal(node_tree.color(), '#ff00ff');
+    return equal(node_tree.hex_color(), '#ff00ff');
+  });
+
+  test("hex_color mixing and normalization", function() {
+    var node_tree;
+
+    node_tree = new NodeTree("Joan of Arc", {
+      "Red": 1,
+      "Purple": 1
+    });
+    return equal(node_tree.hex_color(), '#ff0055');
   });
 
 }).call(this);
