@@ -22,32 +22,28 @@ csv_data.to.array((rows) ->
   property_headers = headers[..]  # copy of headers
   property_headers.shift()        # drop first column (the "content"), other columns are "properties"
 
-  insert "", "name", name
+  insert "name", name
   
   for row, row_index in rows  
-    insert "", "", row[0] if row[0]
+    insert "", row[0] if row[0]
     for node, column_index in row
       if node
         property_name = headers[column_index]
-        insert "", property_name, node
+        insert property_name, node
+        if (parent_node = find_parent(headers, row, column_index))
+          insert parent_node, node
 
-    row_content = row.shift()  # first column is the "content"
-    for property, column_index in row
-      if property       
-        property_name = property_headers[column_index]
-        insert row_content, property_name, property
-               
-    done = row_index == rows.length-1
-    log_if done
+  json = JSON.stringify nodes, null, 4
+  console.log json
 )
 
-insert = (key1, key2, key3) ->
-  nodes[key1] ?= {}
-  nodes[key1][key2] ?= {}          
-  nodes[key1][key2][key3] ?= 0
-  nodes[key1][key2][key3] += 1
+find_parent = (headers, row, column_index) ->
+  i = column_index
+  i-- while headers[i] == headers[i - 1] and i >= 0
+  parent = i - 1
+  row[parent]
 
-log_if = (really)->
-  if really
-    json = JSON.stringify nodes, null, 4
-    console.log json
+insert = (key1, key2) ->
+  nodes[key1] ?= {}
+  nodes[key1][key2] ?= 0
+  nodes[key1][key2] += 1

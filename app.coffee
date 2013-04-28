@@ -41,7 +41,7 @@ root.render_viz = (d3_node_trees, key) ->
     .attr("r", (d) -> d.r) 
     .on "click", (d) -> if d.children then root.render_viz(d3_node_trees, d.name) else undefined
 
-  node.filter((d) -> d.children)
+  node.filter((d) -> !d.children)
     .append("text")
       .attr("text-anchor", "middle")
       .attr("dy", ".3em")

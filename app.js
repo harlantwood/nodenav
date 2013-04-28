@@ -48,7 +48,7 @@
       }
     });
     return node.filter(function(d) {
-      return d.children;
+      return !d.children;
     }).append("text").attr("text-anchor", "middle").attr("dy", ".3em").text(function(d) {
       if (d.name.length <= d.r / 3) {
         return d.name;

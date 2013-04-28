@@ -18,7 +18,7 @@
     }
 
     NodeTree.prototype.to_d3 = function() {
-      var property_name, property_value, property_values, weight;
+      var property_name, weight;
 
       return {
         "name": this.name,
@@ -29,24 +29,11 @@
           _results = [];
           for (property_name in _ref) {
             if (!__hasProp.call(_ref, property_name)) continue;
-            property_values = _ref[property_name];
+            weight = _ref[property_name];
             if (property_name) {
               _results.push({
                 "name": property_name,
-                "children": (function() {
-                  var _results1;
-
-                  _results1 = [];
-                  for (property_value in property_values) {
-                    if (!__hasProp.call(property_values, property_value)) continue;
-                    weight = property_values[property_value];
-                    _results1.push({
-                      "name": property_value,
-                      "size": weight
-                    });
-                  }
-                  return _results1;
-                })()
+                "size": weight
               });
             }
           }

@@ -11,10 +11,6 @@ class root.NodeTree
   to_d3: ->
     "name": @name
     "children": 
-      for own property_name, property_values of @properties when property_name
+      for own property_name, weight of @properties when property_name
         "name": property_name
-        "children": 
-          for own property_value, weight of property_values
-            "name": property_value
-            "size": weight
-    
+        "size": weight    
