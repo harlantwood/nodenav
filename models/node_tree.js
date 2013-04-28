@@ -42,6 +42,38 @@
       };
     };
 
+    NodeTree.prototype.color = function() {
+      var color_flock, colors, mixed_color, property_name, rgb_color, weight, _ref;
+
+      colors = [];
+      _ref = this.properties;
+      for (property_name in _ref) {
+        if (!__hasProp.call(_ref, property_name)) continue;
+        weight = _ref[property_name];
+        if (!(property_name)) {
+          continue;
+        }
+        rgb_color = Colors.name2rgb(property_name);
+        if (rgb_color !== "Invalid Color Name") {
+          colors.push(rgb_color.a);
+        }
+      }
+      mixed_color = (function() {
+        var _i, _len, _ref1, _results;
+
+        _ref1 = _.zip.apply(_, colors);
+        _results = [];
+        for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+          color_flock = _ref1[_i];
+          _results.push(_.reduce(color_flock, (function(memo, num) {
+            return memo + parseInt(num);
+          }), 0));
+        }
+        return _results;
+      })();
+      return Colors.rgb2hex.apply(Colors, mixed_color);
+    };
+
     return NodeTree;
 
   })();
