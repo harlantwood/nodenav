@@ -14,10 +14,6 @@ text {
   font: 12px sans-serif;
 }
 
-.leaf text {
-  opacity: 0;
-}
-
 text.parent {
   fill: #1f77b4;
 }
