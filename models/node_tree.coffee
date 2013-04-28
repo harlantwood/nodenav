@@ -6,6 +6,7 @@ class root.NodeTree
   constructor: (@name, @properties) ->
     throw "ArgumentException" unless typeof @name == "string"
     throw "ArgumentException" unless @properties instanceof Object
+    
     # this[''] = @name
     # for own key, value in @properties when key
     #   this[key] = value
@@ -22,6 +23,14 @@ class root.NodeTree
     for own property_name, weight of @properties when property_name
       rgb_color = Colors.name2rgb property_name
       colors.push rgb_color.a unless _.isEqual(rgb_color.a, NOT_A_COLOR)
-    mixed_color = for color_flock in _.zip(colors...)
+    @color = for color_flock in _.zip(colors...)
       _.reduce(color_flock, ((memo, num) -> (memo + parseInt num)), 0)
-    Colors.rgb2hex mixed_color...
+    @normalize_color()
+    Colors.rgb2hex @color...
+
+  normalize_color: ->
+    max_component = _.max(@color) 
+    if max_component > 255
+      @color = for component in @color
+        Math.round((component/max_component) * 255)
+    

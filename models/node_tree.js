@@ -47,7 +47,7 @@
     };
 
     NodeTree.prototype.color = function() {
-      var color_flock, colors, mixed_color, property_name, rgb_color, weight, _ref;
+      var color_flock, colors, property_name, rgb_color, weight, _ref;
 
       colors = [[0, 0, 0]];
       _ref = this.properties;
@@ -62,7 +62,7 @@
           colors.push(rgb_color.a);
         }
       }
-      mixed_color = (function() {
+      this.color = (function() {
         var _i, _len, _ref1, _results;
 
         _ref1 = _.zip.apply(_, colors);
@@ -75,7 +75,27 @@
         }
         return _results;
       })();
-      return Colors.rgb2hex.apply(Colors, mixed_color);
+      this.normalize_color();
+      return Colors.rgb2hex.apply(Colors, this.color);
+    };
+
+    NodeTree.prototype.normalize_color = function() {
+      var component, max_component;
+
+      max_component = _.max(this.color);
+      if (max_component > 255) {
+        return this.color = (function() {
+          var _i, _len, _ref, _results;
+
+          _ref = this.color;
+          _results = [];
+          for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+            component = _ref[_i];
+            _results.push(Math.round((component / max_component) * 255));
+          }
+          return _results;
+        }).call(this);
+      }
     };
 
     return NodeTree;
