@@ -1,5 +1,7 @@
 root = exports ? this
 
+# Basic D3 Reingold-Tilford radial tree
+
 root.collections_viz = (json_path) ->
   d3.json json_path, (data) ->
     diameter = 960
