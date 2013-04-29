@@ -1,3 +1,5 @@
+'use strict'
+
 root = exports ? this 
 
 # root.PHI_RATIO = 1.6180339887498948482    

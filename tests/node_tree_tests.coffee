@@ -1,3 +1,5 @@
+'use strict'
+
 test "to_d3", -> 
   node_tree = new NodeTree(
     "Joan of Arc",

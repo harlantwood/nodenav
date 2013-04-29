@@ -1,3 +1,5 @@
+'use strict'
+
 root = exports ? this  
 
 class root.NodeTree

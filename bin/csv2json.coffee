@@ -5,6 +5,8 @@
 # or if you prefer:
 # node bin/csv2json.js source.csv target.json 
 
+'use strict'
+
 _ = require 'underscore'
 csv = require 'csv'
 
