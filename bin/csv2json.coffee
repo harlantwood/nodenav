@@ -33,8 +33,7 @@ csv_data.to.array((rows) ->
         if (parent_node = find_parent(headers, row, column_index))
           insert parent_node, node
 
-  json = JSON.stringify nodes, null, 4
-  console.log json
+  console.log JSON.stringify nodes, null, 4
 )
 
 find_parent = (headers, row, column_index) ->
@@ -47,3 +46,4 @@ insert = (key1, key2) ->
   nodes[key1] ?= {}
   nodes[key1][key2] ?= 0
   nodes[key1][key2] += 1
+

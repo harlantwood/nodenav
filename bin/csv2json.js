@@ -17,7 +17,7 @@
   csv_data = csv().from.path(source);
 
   csv_data.to.array(function(rows) {
-    var column_index, headers, json, node, parent_node, property_headers, property_name, row, row_index, _i, _j, _len, _len1;
+    var column_index, headers, node, parent_node, property_headers, property_name, row, row_index, _i, _j, _len, _len1;
 
     rows = (function() {
       var _i, _len, _results;
@@ -58,8 +58,7 @@
         }
       }
     }
-    json = JSON.stringify(nodes, null, 4);
-    return console.log(json);
+    return console.log(JSON.stringify(nodes, null, 4));
   });
 
   find_parent = function(headers, row, column_index) {
