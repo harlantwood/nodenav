@@ -19,7 +19,7 @@
       if (!(this.properties instanceof Object)) {
         throw "ArgumentException";
       }
-      this.color = [0, 0, 0];
+      this.colorize();
     }
 
     NodeTree.prototype.to_d3 = function() {
@@ -48,9 +48,10 @@
       };
     };
 
-    NodeTree.prototype.hex_color = function() {
+    NodeTree.prototype.colorize = function() {
       var b, g, property_name, r, rgb_color, valid_color, weight, _ref, _ref1;
 
+      this.color = [0, 0, 0];
       _ref = this.properties;
       for (property_name in _ref) {
         if (!__hasProp.call(_ref, property_name)) continue;
@@ -67,8 +68,7 @@
           this.color[2] += b * weight / 255;
         }
       }
-      this.normalize_color();
-      return Colors.rgb2hex.apply(Colors, this.color_rgb_255());
+      return this.normalize_color();
     };
 
     NodeTree.prototype.normalize_color = function() {
@@ -88,6 +88,10 @@
           return _results;
         }).call(this);
       }
+    };
+
+    NodeTree.prototype.hex_color = function() {
+      return Colors.rgb2hex.apply(Colors, this.color_rgb_255());
     };
 
     NodeTree.prototype.color_rgb_255 = function() {
