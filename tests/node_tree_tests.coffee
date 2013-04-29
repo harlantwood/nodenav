@@ -2,16 +2,17 @@ test "to_d3", ->
   node_tree = new NodeTree(
     "Joan of Arc",
     "Earth Programmer": 0.5,
-    "Earth Engineer": 0.6
+    "Earth Engineer": 0.6         
   )
   
   expected_d3 = 
     {
       "name": "Joan of Arc"
+      "fill_color": "#000000"
       "children": [
         {
           "name": "Earth Programmer"
-          "size": 0.5
+          "size": 0.5    
         }
         {
           "name": "Earth Engineer"
@@ -121,3 +122,4 @@ test "hex_color weights", ->
     "blue": 1/3 
   )
   equal node_tree.hex_color(), '#800055'
+

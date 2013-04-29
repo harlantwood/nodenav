@@ -9,6 +9,7 @@
     });
     expected_d3 = {
       "name": "Joan of Arc",
+      "fill_color": "#000000",
       "children": [
         {
           "name": "Earth Programmer",

@@ -40,6 +40,8 @@
     });
     node.append("circle").attr("r", function(d) {
       return d.r;
+    }).style("fill", function(d) {
+      return d.fill_color;
     }).filter(function(d) {
       return !d.children;
     }).on("click", function(d) {

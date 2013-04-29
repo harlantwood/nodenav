@@ -10,6 +10,7 @@ class root.NodeTree
     
   to_d3: ->
     "name": @name
+    "fill_color": @hex_color()
     "children": 
       for own property_name, weight of @properties when property_name
         "name": property_name

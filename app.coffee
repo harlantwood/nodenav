@@ -39,6 +39,7 @@ root.render_viz = (d3_node_trees, key) ->
 
   node.append("circle")
     .attr("r", (d) -> d.r) 
+    .style("fill", (d) -> d.fill_color)
     .filter((d) -> !d.children)
       .on "click", (d) -> (root.render_viz(d3_node_trees, d.name))
 

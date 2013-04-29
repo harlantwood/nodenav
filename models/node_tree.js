@@ -27,6 +27,7 @@
 
       return {
         "name": this.name,
+        "fill_color": this.hex_color(),
         "children": (function() {
           var _ref, _results;
 
