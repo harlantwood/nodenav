@@ -22,17 +22,16 @@ class root.NodeTree
       valid_color = ! _.isEqual(rgb_color.a, NOT_A_COLOR)
       if valid_color           
         [r, g, b] = rgb_color.a
-        @color[0] += weight * r / 255
-        @color[1] += weight * g / 255
-        @color[2] += weight * b / 255
+        @color[0] += r * weight / 255
+        @color[1] += g * weight / 255
+        @color[2] += b * weight / 255
     @normalize_color()
     Colors.rgb2hex @color_rgb_255()...
 
   normalize_color: ->
     max_component = _.max(@color) 
     if max_component > 1
-      @color = for component in @color
-        component/max_component
+      @color = (component/max_component for component in @color)
 
   color_rgb_255: ->
     for component in @color

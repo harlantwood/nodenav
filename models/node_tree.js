@@ -62,9 +62,9 @@
         valid_color = !_.isEqual(rgb_color.a, NOT_A_COLOR);
         if (valid_color) {
           _ref1 = rgb_color.a, r = _ref1[0], g = _ref1[1], b = _ref1[2];
-          this.color[0] += weight * r / 255;
-          this.color[1] += weight * g / 255;
-          this.color[2] += weight * b / 255;
+          this.color[0] += r * weight / 255;
+          this.color[1] += g * weight / 255;
+          this.color[2] += b * weight / 255;
         }
       }
       this.normalize_color();
