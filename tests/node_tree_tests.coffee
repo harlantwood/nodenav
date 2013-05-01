@@ -3,7 +3,7 @@
 test "to_d3", -> 
   node_tree = new NodeTree(
     "Joan of Arc",
-    "Earth Programmer": 0.5,
+    "Earth Programmer": 0.5
     "Earth Engineer": 0.6         
   )
   
