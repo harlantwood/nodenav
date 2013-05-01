@@ -20,7 +20,7 @@
     "grunt-contrib-qunit": "~0.2.1"
   },
   "batman": {
-    "appName": "NodeNav",
+    "appName": "Nodenav",
     "build": true,
     "buildDir": "./build"
   }
