@@ -1,4 +1,4 @@
-class NodeNav.ExamplesController extends NodeNav.ApplicationController
+class Nodenav.ExamplesController extends Nodenav.ApplicationController
   routingKey: 'examples'
   # Add actions to this controller by defining functions on it.
   #
