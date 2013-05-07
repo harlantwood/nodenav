@@ -1,6 +1,7 @@
 class Nodenav extends Batman.App
   @set 'mission', 'fight crime'
 
-  @root 'nodetrees#show'
+  @root 'gittrees#new'
 
 window.Nodenav = Nodenav
+

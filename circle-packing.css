@@ -1,3 +1,8 @@
+#viz-graph {
+  width: 100%;
+  height: 800px;
+}
+
 circle {
   fill-opacity: 0.6180339887498948;
   stroke-width: 1px;
