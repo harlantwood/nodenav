@@ -18,6 +18,7 @@
 <script type="text/javascript" src="nodenav.js"></script>
 <script type="text/javascript" src="models/gittree.js"></script>
 <script type="text/javascript" src="models/d3/circlepack.js"></script>
+<script type="text/javascript" src="models/d3/radialtree.js"></script>
 <script type="text/javascript" src="controllers/application_controller.js"></script>
 <script type="text/javascript" src="controllers/gittrees_controller.js"></script>
 
@@ -32,28 +33,24 @@
     <input id="new-gittree" type="text" placeholder="Enter a github repo url&hellip;" autofocus data-bind="gittree.repourl">
   </form>
 
+  <ul class="nav nav-pills viz-toggle">
+    <li class="active" data-viztype="circlepack"><a data-event-click="switch">Circle Packing</a></li>
+    <li data-viztype="radialtree" ><a data-event-click="switch">Radial Tree</a></li>
+  </ul>
+
+  <!-- <ul id="viz-path" class="breadcrumb">
+    <li><a data-path="root" href="#">root</a> <span class="divider">/</span></li>
+  </ul> -->
+
+  <div id="viz-graph"></div>
+  <!-- <div id="viz-list"></div>       -->
+
 </div>
 
 
-<ul class="nav nav-pills viz-toggle">
-  <li class="active" data-viztype="circlepack"><a href="#">Circle Packing</a></a>
-  <li data-viztype="radialtree" ><a href="#">Radial Tree</a></li>
-</ul>
 
-<ul id="viz-path" class="breadcrumb">
-  <li><a data-path="root" href="#">root</a> <span class="divider">/</span></li>
-</ul>
-
-<div id="viz-graph"></div>
-<div id="viz-list"></div>      
-
-
-
-
-<!-- <div id="viz-graph"></div> -->
 <script type="text/javascript">
   Nodenav.run();
-  // collections_viz('fixtures/collections.json');
 </script>
 
 

@@ -3,25 +3,16 @@
   height: 800px;
 }
 
-#viz-graph.circlepack circle {
+#viz-graph circle {
   fill-opacity: 0.25;
   stroke-width: 1px;
   fill: #1f77b4;
   stroke: #4682b4;
 }
 
-#viz-graph.circlepack .leaf circle {
-  fill-opacity: 0;
-  pointer-events: none;
-}
-
-#viz-graph.circlepack text {
+#viz-graph text {
   font: 12px sans-serif;
 }
-
-/*#viz-graph.circlepack .leaf text {
-  opacity: 0;
-}*/
 
 #viz-graph.circlepack text.parent {
   fill: #1f77b4;
@@ -41,3 +32,13 @@
   stroke: #ccc;
   stroke-width: 1.5px;
 }
+
+/*#viz-graph.circlepack .leaf circle {
+  fill-opacity: 0;
+  pointer-events: none;
+}*/
+
+/*#viz-graph.circlepack .leaf text {
+  opacity: 0;
+}*/
+

@@ -1,22 +1,15 @@
-######################################################################
-# Canopy D3 Circle Pack
-######################################################################
 'use strict'
                  
 Nodenav.D3 ?= {}
 
-class Nodenav.D3.Circlepack extends Batman.Model
+class Nodenav.D3.Circlepack
 
   render: (elem, data, options = {}) ->
-
-    console.log 111, options
 
     options = $.extend({
       width   : 600
       height  : 600
     }, options)
-
-    console.log 222, options
 
     @width  = options.width
     @height = options.height
