@@ -37,9 +37,12 @@ class Nodenav.D3.Circlepack
 
     @circles = node.append("circle")
       .attr("r", (d) -> d.r)
+
+    @circles #.filter((d) -> d.depth == 1)
       .on("click", options.click)
 
-    node.filter((d) -> d.children)
+    node
+      .filter((d) -> d.depth == 1)
       .append("text")
         .attr("text-anchor", "middle")
         .attr("dy", ".3em")
