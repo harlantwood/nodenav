@@ -6,5 +6,6 @@ node_js:
   
 before_script:
   - npm install --global grunt-cli
+  - npm install --global coffee
 
 script: ./run_tests --verbose
