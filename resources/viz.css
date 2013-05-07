@@ -1,5 +1,5 @@
 #viz-graph {
-  width: 100%;
+  width: 960;
   height: 800px;
 }
 
@@ -11,7 +11,7 @@
 }
 
 #viz-graph text {
-  font: 12px sans-serif;
+  font: 10px sans-serif;
 }
 
 #viz-graph.circlepack text.parent {

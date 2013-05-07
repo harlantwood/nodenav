@@ -37,7 +37,8 @@ class Nodenav.GittreesController extends Batman.Controller
     @renderer = new RENDERERS[rendererName]
     @renderer.render '#viz-graph', data,
       width   : $viz.width()
-      height  : $viz.height()
+      height  : $viz.height() 
+      diameter: 960
       click   : @zoom
     # @renderList data if data.children
 

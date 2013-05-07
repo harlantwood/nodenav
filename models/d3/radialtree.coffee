@@ -5,9 +5,9 @@ Nodenav.D3 ?= {}
 class Nodenav.D3.RadialTree
 
   render: (elem, data, options = {}) ->
-    width     = options.width
-    height    = options.height
     diameter  = options.diameter || Math.min(options.width, options.height)
+    width     = diameter        # options.width
+    height    = diameter - 150  # options.height
 
     tree = d3.layout.tree()
       .size([360, diameter / 2 - 120])
