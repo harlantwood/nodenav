@@ -38,7 +38,7 @@ class Nodenav.GittreesController extends Batman.Controller
     @renderer.render '#viz-graph', data,
       width   : $viz.width()
       height  : $viz.height()
-      # click   : @zoom
+      click   : @zoom
     # @renderList data if data.children
 
   switch: (link) ->  
@@ -47,9 +47,12 @@ class Nodenav.GittreesController extends Batman.Controller
     viz_type = link.parent().attr('data-viztype')
     @renderViz @data.root, viz_type
   
-  # zoom: (node) =>
-  #   @renderViz node
-  # 
+  zoom: (node) =>
+    @renderViz node
+  
+  reset: ->
+    @renderViz @data.root
+
   # renderList: (data) ->
   #   $list = @$('viz-list').empty()
   #   data = data.children.sort (a, b) ->
@@ -60,8 +63,4 @@ class Nodenav.GittreesController extends Batman.Controller
   #   items = for node in data
   #     "<div>#{node.path}</div>"
   #   $list.append items
-  # 
-  # reset: (evt) ->
-  #   evt.preventDefault()
-  #   @renderViz @data.root
   
