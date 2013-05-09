@@ -33,6 +33,10 @@
     <input id="new-gittree" type="text" placeholder="Enter a github repo url&hellip;" autofocus data-bind="gittree.repourl">
   </form>
 
+  <div id="viz-graph"></div>
+
+  <!-- <div id="viz-list"></div> -->
+
   <ul class="nav nav-pills viz-toggle">
     <li class="active" data-viztype="circlepack"><a data-event-click="switch">Circle Packing</a></li>
     <li data-viztype="radialtree" ><a data-event-click="switch">Radial Tree</a></li>
@@ -41,9 +45,6 @@
   <ul id="viz-path" class="breadcrumb">
     <li><a data-path="root" data-event-click="reset">root</a> <span class="divider">/</span></li>
   </ul>
-
-  <div id="viz-graph"></div>
-  <!-- <div id="viz-list"></div>       -->
 
 </div>
 
