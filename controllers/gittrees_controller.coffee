@@ -14,10 +14,9 @@ class Nodenav.GittreesController extends Batman.Controller
         throw err unless err instanceof Batman.ErrorsSet
       else
         @loadGitRepo(gittree)
-        @set 'newGittree', new Nodenav.Gittree()
+        @set 'newGittree', new Nodenav.Gittree(repourl: gittree.get('repourl'))
 
   loadGitRepo: (gittree) ->
-    # repo = gittree.getRepoFromURL url
     gittree.loadRepo success: (results) =>
       @data = gittree.parse results.data
       @renderViz @data.root 
@@ -31,9 +30,9 @@ class Nodenav.GittreesController extends Batman.Controller
 
     $viz = $('#viz-graph')
       .empty()
-      .removeClass()
-      .addClass rendererName
-  
+      .removeAttr('class')
+      .addClass(rendererName)
+
     @renderer = new RENDERERS[rendererName]
     @renderer.render '#viz-graph', data,
       width   : $viz.width()
@@ -43,9 +42,9 @@ class Nodenav.GittreesController extends Batman.Controller
     # @renderList data if data.children
 
   switch: (link) ->  
-    link = $(link)
-    # link.preventDefault()
-    viz_type = link.parent().attr('data-viztype')
+    $link = $(link)
+    # $link.preventDefault()
+    viz_type = $link.parent().attr('data-viztype')
     @renderViz @data.root, viz_type
   
   zoom: (node) =>

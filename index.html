@@ -3,20 +3,25 @@
 <head>
 <title>NodeNav</title>
 
-<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" type="text/css" href="resources/jquery-ui-bootstrap/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="resources/jquery-ui-bootstrap/jquery-ui-1.10.0.custom.css" />
 <link rel="stylesheet" type="text/css" href="resources/jquery-ui-bootstrap/jquery.ui.1.10.0.ie.css" />
 <link rel="stylesheet" type="text/css" href="resources/main.css" />
 <link rel="stylesheet" type="text/css" href="resources/viz.css" />
 
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/javascript" src="resources/jquery-ui-bootstrap/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="resources/jquery-ui-bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="resources/jquery-ui-bootstrap/js/jquery-ui-1.10.0.custom.min.js"></script>
 
 <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
-<script type="text/javascript" src="lib/colors/colors.js"></script>
-<script type="text/javascript" src="lib/underscore/underscore.js"></script>
+<script type="text/javascript" src="vendor/colors/colors.js"></script>
+<script type="text/javascript" src="vendor/underscore/underscore.js"></script>
 
-<!-- Batman.js -->
 <script type="text/javascript" src="/batman/coffee-script.js"></script>
 <script type="text/javascript" src="/batman/es5-shim.js"></script>
 <script type="text/javascript" src="/batman/dist/batman.js"></script>
@@ -39,14 +44,15 @@
     <input id="new-gittree" type="text" placeholder="Enter a github repo url&hellip;" autofocus data-bind="gittree.repourl">
   </form>
 
-  <div id="viz-graph"></div>
+  <div id="tabs">
+    <ul>
+      <li class="active" data-viztype="circlepack"><a data-event-click="switch" href="#viz-graph.circlepack">Circle Packing</a></li>
+      <li                data-viztype="radialtree"><a data-event-click="switch" href="#viz-graph.radialtree">Radial Tree</a></li>
+    </ul>
+    <div id="viz-graph"></div>
+  </div>
 
   <!-- <div id="viz-list"></div> -->
-
-  <ul class="nav nav-pills viz-toggle">
-    <li class="active" data-viztype="circlepack"><a data-event-click="switch">Circle Packing</a></li>
-    <li data-viztype="radialtree" ><a data-event-click="switch">Radial Tree</a></li>
-  </ul>
 
   <ul id="viz-path" class="breadcrumb">
     <li><a data-path="root" data-event-click="reset">root</a> <span class="divider">/</span></li>
@@ -54,14 +60,13 @@
 
 </div>
 
-
-
 <script type="text/javascript">
   Nodenav.run();
+
+  $(function () {
+    $('#tabs').tabs();
+  });
 </script>
-
-
-
 
 </body>
 </html>
