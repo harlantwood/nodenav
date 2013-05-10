@@ -21,19 +21,15 @@ class Nodenav.GittreesController extends Batman.Controller
       @data = gittree.parse results.data
       @renderViz @data.root 
   
-  renderViz: (data, type) ->
-    if type
-      $('[data-viztype]').removeClass('active')
-      $("[data-viztype=#{type}]").addClass('active')
-
-    rendererName = $('[data-viztype].active').data('viztype')
+  renderViz: (data, viz_type) ->
+    viz_type or= $('#tabs > ul > li:first-child').data('viztype')
 
     $viz = $('#viz-graph')
       .empty()
       .removeAttr('class')
-      .addClass(rendererName)
+      .addClass(viz_type)
 
-    @renderer = new RENDERERS[rendererName]
+    @renderer = new RENDERERS[viz_type]
     @renderer.render '#viz-graph', data,
       width   : $viz.width()
       height  : $viz.height() 
