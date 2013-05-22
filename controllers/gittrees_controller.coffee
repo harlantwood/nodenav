@@ -1,10 +1,12 @@
+"use strict"
+
 class Nodenav.GittreesController extends Batman.Controller
   routingKey: 'gittrees'
   EXAMPLE_REPO_URL = "https://github.com/wycats/thor"
   RENDERERS = 
     circlepack: Nodenav.D3.Circlepack
     radialtree: Nodenav.D3.RadialTree
-  
+
   new: -> 
     @set 'newGittree', new Nodenav.Gittree(repourl: EXAMPLE_REPO_URL)
 
