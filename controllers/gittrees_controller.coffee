@@ -2,7 +2,7 @@
 
 class Nodenav.GittreesController extends Batman.Controller
   routingKey: 'gittrees'
-  EXAMPLE_REPO_URL = "https://github.com/wycats/thor"
+  EXAMPLE_REPO_URL = "https://github.com/harlantwood/nodenav"
   RENDERERS = 
     circlepack: Nodenav.D3.Circlepack
     radialtree: Nodenav.D3.RadialTree
