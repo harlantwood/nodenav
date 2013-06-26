@@ -5,19 +5,19 @@
   "version": "0.0.1",
   "main": "build/app.js",
   "engines": {
-    "node": "~>0.8.0"
+    "node": "~0.8.0"
   },
   "dependencies": {
-    "batman": "~>0.14.1"
+    "batman": "~0.14.1"
   },
   "devDependencies": {
-    "coffee-script": "~>1.3.3",
-    "underscore": "~>1.4.4",
-    "csv": "~>0.3.0",
-    "grunt": "~>0.4.1",
-    "grunt-contrib-jshint": "~>0.1.1",
-    "grunt-contrib-nodeunit": "~>0.1.2",
-    "grunt-contrib-qunit": "~>0.2.1"
+    "coffee-script": "~1.3.3",
+    "underscore": "~1.4.4",
+    "csv": "~0.3.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.1.1",
+    "grunt-contrib-nodeunit": "~0.1.2",
+    "grunt-contrib-qunit": "~0.2.1"
   },
   "batman": {
     "appName": "Nodenav",
