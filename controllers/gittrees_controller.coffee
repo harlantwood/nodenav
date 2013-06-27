@@ -8,7 +8,7 @@ class Nodenav.GittreesController extends Batman.Controller
     radialtree: Nodenav.D3.RadialTree
 
   new: -> 
-    @set 'newGittree', new Nodenav.Gittree(repourl: EXAMPLE_REPO_URL)
+    @set 'newGittree', new Nodenav.Gittree(location: EXAMPLE_REPO_URL)
 
   createGittree: ->
     @get('newGittree').save (err, gittree) =>
@@ -16,7 +16,7 @@ class Nodenav.GittreesController extends Batman.Controller
         throw err unless err instanceof Batman.ErrorsSet
       else
         @loadGitRepo(gittree)
-        @set 'newGittree', new Nodenav.Gittree(repourl: gittree.get('repourl'))
+        @set 'newGittree', new Nodenav.Gittree(location: gittree.get('location'))
 
   loadGitRepo: (gittree) ->
     gittree.loadRepo success: (results) =>

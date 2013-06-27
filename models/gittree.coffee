@@ -1,22 +1,25 @@
 'use strict'
 
 class Nodenav.Gittree extends Batman.Model
-  @encode 'repourl'
+  @encode 'location'
   @persist Batman.LocalStorage
-  @validate 'repourl', presence: true
+  @validate 'location', presence: true
   @storageKey: 'nodenav-gittree'
                      
   loadRepo: (options = {}) ->
-    opts = $.extend({sha: 'HEAD', recursive: 1}, options, {repo: @repo()})
+    opts = $.extend({sha: 'HEAD', recursive: 1}, options, {location: @location()})
     opts.recursive = if opts.recursive then 1 else 0
-    url = "https://api.github.com/repos/#{opts.repo}/git/trees/#{opts.sha}?recursive=#{opts.recursive}&callback=?"
+    url = "https://api.github.com/repos/#{opts.location}/git/trees/#{opts.sha}?recursive=#{opts.recursive}"
     $.ajax($.extend {
       url: url
       dataType: 'jsonp'
     }, opts)
 
-  repo: () ->
-    m[1] if m = @get('repourl').match(/github\.com\/([^\/]+\/[^\/]+)/)
+  location: ->
+    @repo()
+
+  repo: ->
+    m[1] if m = @get('location').match(///github\.com/([^/]+/[^/]+)///)
 
   parse: (data) ->
     paths =
