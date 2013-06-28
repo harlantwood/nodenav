@@ -1,24 +1,29 @@
 #!/usr/bin/env coffee
 
 # Usage:
-# bin/csv2json.coffee source.csv target.json 
-# or if you prefer:
-# node bin/csv2json.js source.csv target.json 
+# bin/digest_spreadsheet.coffee source.csv
 
 'use strict'
 
 _ = require 'underscore'
+fs = require 'fs'
+path = require 'path'
 csv = require 'csv'
 
 BASE_WEIGHT = 1
-                     
-[source, target] = process.argv[2..]  # all relevant command line args 
-               
-name = _.last(target.split '/').replace(/\.\w+$/, '')  # remove directories and file extension
+
+source = process.argv[2]
+source = fs.realpathSync source
+name = _.last(source.split '/').replace(/\.\w+$/, '')  # remove directories and file extension
+
+base_name = source.replace /.csv$/, ''
+target_file_store_dir = base_name
+target_json = "#{base_name}.json"
+                        
 nodes = {}   # a hash of hashes of hashes of numbers, 0..1, for more details see <https://gist.github.com/harlantwood/4a698db1cd6e7fe00bd9>
 csv_data = csv().from.path(source)
   
-csv_data.to.array((rows) -> 
+csv_data.to.array((rows) ->
   rows = ((node.trim() for node in row) for row in rows)
   headers = rows.shift()
   property_headers = headers[..]  # copy of headers
@@ -35,7 +40,7 @@ csv_data.to.array((rows) ->
         if (parent_node = find_parent(headers, row, column_index))
           insert parent_node, node
 
-  console.log JSON.stringify nodes, null, 4
+  fs.writeFileSync target_json, JSON.stringify(nodes, null, 4)
 )
 
 find_parent = (headers, row, column_index) ->
@@ -47,5 +52,12 @@ find_parent = (headers, row, column_index) ->
 insert = (key1, key2) ->
   nodes[key1] ?= {}
   nodes[key1][key2] ?= 0
-  nodes[key1][key2] += 1
+  nodes[key1][key2] += 1      
+  write_tree target_file_store_dir, key1
+  write_tree target_file_store_dir, key1, key2
+
+write_tree = (path_segments...) ->
+  dir = path.join path_segments...
+  try fs.mkdirSync dir
+  fs.writeFileSync path.join(dir, '-'), '-'
 
